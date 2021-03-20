@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { User} from '../_models/user'
 import { ReplaySubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Token } from '@angular/compiler/src/ml_parser/lexer';
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +39,9 @@ register(model: any){
 }
 
 setCurrentUser(user: User){
+  user.roles = [];
+  const roles = this.getDecodedToken(user.token).role;
+  Array.isArray(roles) ? user.roles = roles : user.roles.push(roles);
   localStorage.setItem('user',JSON.stringify(user));
   this.currentUserSource.next(user);
 }
@@ -45,6 +49,10 @@ setCurrentUser(user: User){
 logout(){
   localStorage.removeItem('user');
   this.currentUserSource.next(null);
+}
+getDecodedToken(token){
+
+  return JSON.parse(atob(token.split('.')[1]));
 }
 
 }

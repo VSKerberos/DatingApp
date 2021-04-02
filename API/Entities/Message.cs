@@ -20,7 +20,7 @@ namespace API.Entities
 
         public DateTime? DateRead { get; set; }
 
-        public DateTime MessageSent { get; set; } = DateTime.Now;
+        public DateTime MessageSent { get; set; } = DateTime.UtcNow;
 
         public bool SenderDeleted { get; set; }
 

@@ -106,7 +106,7 @@ namespace API.Data
                     item.DateRead = DateTime.UtcNow;
                 }
 
-                await _context.SaveChangesAsync();
+
             }
 
             return _mapper.Map<IEnumerable<MessageDto>>(messages);
@@ -117,9 +117,5 @@ namespace API.Data
             _context.Connections.Remove(connection);
         }
 
-        public async Task<bool> SaveAllAsymc()
-        {
-            return await _context.SaveChangesAsync() > 0;
-        }
     }
 }
